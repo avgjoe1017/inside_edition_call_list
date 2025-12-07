@@ -450,6 +450,7 @@ The app uses a cloud backend for data persistence and real-time sync:
 - **POST /api/alerts/text** - Send text alert (SMS) to recipient group via Twilio
 - **POST /api/alerts/voice** - Send voice alert to recipient group
 - **POST /api/webhooks/twilio/status** - Twilio status callback webhook
+- **POST /api/import/csv** - Import market data from CSV (supports dry-run mode)
 
 ### Database Schema
 
@@ -574,9 +575,35 @@ All updates are synced instantly across devices through the cloud database.
 The app and backend are running automatically:
 - **Frontend**: Port 8081 (Expo dev server)
 - **Backend**: Port 3000 (Hono API server)
-- **Database**: SQLite with Prisma Studio on port 3001 (view in CLOUD tab)
+- **Database**: PostgreSQL (Railway) with Prisma Studio on port 3001 (view in CLOUD tab)
 
 Any changes to the code will hot-reload automatically.
+
+### Importing Market Data from CSV
+
+To import market data from a CSV file:
+
+```bash
+cd backend
+bun run import-csv "../data/ie data as of 12-6.csv"
+```
+
+**Quick test first (recommended):**
+```bash
+bun run test-csv "../data/ie data as of 12-6.csv"
+```
+
+This will:
+- Parse the CSV file
+- Validate all phone numbers
+- Create new markets or update existing ones
+- Log all changes for audit trail
+- Sync data instantly across all devices
+
+**Documentation:**
+- Quick Start: `MD_DOCS/QUICK_START_IMPORT.md`
+- Full Guide: `MD_DOCS/CSV_IMPORT.md`
+- API Endpoint: `POST /api/import/csv` (supports dry-run mode)
 
 ### Backend Development
 

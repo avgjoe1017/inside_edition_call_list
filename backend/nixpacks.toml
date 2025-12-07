@@ -1,0 +1,16 @@
+# Nixpacks configuration for Railway deployment
+[phases.setup]
+nixPkgs = ["bun"]
+
+[phases.install]
+cmds = ["bun install"]
+
+[phases.build]
+cmds = [
+  "bunx prisma generate",
+  "bun run build"
+]
+
+[start]
+cmd = "bunx prisma migrate deploy && bun run start"
+

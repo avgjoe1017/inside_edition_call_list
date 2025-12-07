@@ -1,0 +1,17 @@
+{
+  "extends": "./node_modules/expo/tsconfig.base.json",
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/shared/*": ["./shared/*"],
+      "@tanstack/react-query": ["./node_modules/@tanstack/react-query/build/modern/index.d.ts"],
+      "better-auth/react": ["./node_modules/better-auth/dist/client/react/index.d.ts"],
+      "better-auth/client/plugins": ["./node_modules/better-auth/dist/client/plugins/index.d.ts"],
+      "@better-auth/expo/client": ["./node_modules/@better-auth/expo/dist/client.d.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "shared/**/*.ts", "shared/**/*.tsx", "nativewind-env.d.ts", "App.tsx", "index.ts"],
+  "exclude": ["node_modules", "backend/node_modules", "backend/generated", ".expo"]
+}

@@ -1,0 +1,43 @@
+{
+  "name": "Inside Edition Call List",
+  "short_name": "IE Call List",
+  "description": "TV Market Directory for Inside Edition producers - quick access to station contacts across all markets",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#1a1a2e",
+  "icons": [
+    {
+      "src": "/assets/image-1765046972.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/image-1765046972.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Send Text Alert",
+      "short_name": "Text Alert",
+      "description": "Send SMS alert to stations",
+      "url": "/TextAlert",
+      "icons": [{ "src": "/assets/image-1765046972.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Call History",
+      "short_name": "Call Logs",
+      "description": "View call history",
+      "url": "/CallLogs",
+      "icons": [{ "src": "/assets/image-1765046972.png", "sizes": "96x96" }]
+    }
+  ]
+}
+

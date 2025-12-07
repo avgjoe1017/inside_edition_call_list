@@ -1,0 +1,177 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  name          String?
+  emailVerified Boolean   @default(false)
+  image         String?
+  role          String    @default("producer") // "admin", "producer", "viewer"
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  Profile       Profile?
+  accounts      Account[]
+  sessions      Session[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(uuid())
+  accountId             String
+  providerId            String
+  userId                String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id @default(uuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@map("verification")
+}
+
+model Profile {
+  id     Int    @id @default(autoincrement())
+  handle String @unique
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Market {
+  id                 String        @id @default(uuid())
+  marketNumber       Int           @unique
+  name               String
+  stationCallLetters String?
+  airTime            String
+  timezone           String        @default("EST")
+  list               String        @default("6pm")
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  phones             PhoneNumber[]
+
+  @@map("market")
+}
+
+model PhoneNumber {
+  id            String    @id @default(uuid())
+  label         String
+  number        String
+  isPrimary     Boolean   @default(false)
+  marketId      String
+  lastFailedAt  DateTime? // Track when this number last failed/bounced
+  failureCount  Int       @default(0) // How many consecutive failures
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  market        Market    @relation(fields: [marketId], references: [id], onDelete: Cascade)
+
+  @@map("phone_number")
+}
+
+model EditLog {
+  id        String   @id @default(uuid())
+  marketId  String
+  field     String
+  oldValue  String?
+  newValue  String?
+  editedBy  String?
+  createdAt DateTime @default(now())
+
+  @@index([marketId])
+  @@index([createdAt])
+  @@map("edit_log")
+}
+
+model CallLog {
+  id          String   @id @default(uuid())
+  marketId    String
+  marketName  String
+  phoneNumber String
+  phoneLabel  String
+  calledBy    String?
+  action      String
+  createdAt   DateTime @default(now())
+
+  @@index([marketId])
+  @@index([calledBy])
+  @@index([createdAt])
+  @@index([action])
+  @@map("call_log")
+}
+
+model AlertLog {
+  id              String            @id @default(uuid())
+  alertType       String            // "voice" or "text"
+  message         String?           // Text content for SMS, or description
+  audioUrl        String?           // Audio file URL for voice alerts
+  audioDuration   Float?            // Duration in seconds
+  recipientGroup  String            // "all", "3pm", or "6pm"
+  recipientCount  Int               // How many stations were targeted
+  sentBy          String?           // User identifier
+  createdAt       DateTime          @default(now())
+  deliveries      AlertDelivery[]
+
+  @@index([alertType])
+  @@index([recipientGroup])
+  @@index([sentBy])
+  @@index([createdAt])
+  @@map("alert_log")
+}
+
+model AlertDelivery {
+  id           String    @id @default(uuid())
+  alertId      String
+  alert        AlertLog  @relation(fields: [alertId], references: [id], onDelete: Cascade)
+  marketId     String
+  marketName   String
+  phoneNumber  String
+  phoneLabel   String
+  status       String    // "sent", "delivered", "failed", "bounced"
+  errorReason  String?   // Error message if failed/bounced
+  sentAt       DateTime  @default(now())
+  deliveredAt  DateTime? // When delivery was confirmed (if applicable)
+  readAt       DateTime? // Read receipt timestamp (if supported)
+
+  @@index([alertId])
+  @@index([marketId])
+  @@index([status])
+  @@index([sentAt])
+  @@map("alert_delivery")
+}

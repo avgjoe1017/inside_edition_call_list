@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "Inside Edition Call List",
+    "slug": "inside-edition-call-list",
+    "scheme": "insideedition",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "icon": "./assets/image-1765046972.png",
+    "splash": {
+      "image": "./assets/image-1765046972.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1a1a2e"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.insideedition.calllist"
+    },
+    "android": {
+      "edgeToEdgeEnabled": true,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/image-1765046972.png",
+        "backgroundColor": "#1a1a2e"
+      },
+      "package": "com.insideedition.calllist"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/image-1765046972.png",
+      "name": "Inside Edition Call List",
+      "shortName": "IE Call List",
+      "description": "TV Market Directory for Inside Edition producers",
+      "lang": "en",
+      "themeColor": "#1a1a2e",
+      "backgroundColor": "#ffffff",
+      "display": "standalone",
+      "orientation": "portrait",
+      "startUrl": "/",
+      "scope": "/"
+    },
+    "plugins": [
+      "expo-secure-store"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "inside-edition-call-list"
+      }
+    }
+  }
+}
