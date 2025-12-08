@@ -52,7 +52,7 @@ export const marketSchema = z.object({
   stationCallLetters: z.string().optional(),
   airTime: z.string(), // Time only (e.g., "10:00 PM")
   timezone: z.string(), // Timezone (EST, CST, MST, PST)
-  list: z.enum(["3pm", "6pm"]), // Which list this station is on
+  list: z.enum(["3pm", "5pm", "6pm"]), // Which list this station is on
   phones: z.array(phoneNumberSchema),
 });
 export type Market = z.infer<typeof marketSchema>;
@@ -77,7 +77,7 @@ export const updateMarketRequestSchema = z.object({
   stationCallLetters: z.string().optional(),
   airTime: z.string(), // Time only (e.g., "10:00 PM")
   timezone: z.string(), // Timezone (EST, CST, MST, PST)
-  list: z.enum(["3pm", "6pm"]), // Which list this station is on
+  list: z.enum(["3pm", "5pm", "6pm"]), // Which list this station is on
   phones: z.array(
     z.object({
       id: z.string().optional(), // Optional because new phones won't have an ID
@@ -176,7 +176,7 @@ export const recipientGroupSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   recipientCount: z.number(),
-  list: z.enum(["all", "3pm", "6pm"]),
+  list: z.enum(["all", "3pm", "5pm", "6pm"]),
 });
 export type RecipientGroup = z.infer<typeof recipientGroupSchema>;
 
@@ -242,7 +242,7 @@ export const alertLogSchema = z.object({
   message: z.string().nullable(),
   audioUrl: z.string().nullable(),
   audioDuration: z.number().nullable(),
-  recipientGroup: z.enum(["all", "3pm", "6pm"]),
+  recipientGroup: z.enum(["all", "3pm", "5pm", "6pm"]),
   recipientCount: z.number(),
   sentBy: z.string().nullable(),
   createdAt: z.string(), // ISO date string

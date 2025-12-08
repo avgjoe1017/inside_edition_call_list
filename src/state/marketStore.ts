@@ -15,10 +15,10 @@ interface MarketStore {
   // Local UI state - filters
   filterText: string;
   filterTime: string;
-  filterList: "all" | "3pm" | "6pm";
+  filterList: "all" | "3pm" | "5pm" | "6pm";
   setFilterText: (text: string) => void;
   setFilterTime: (time: string) => void;
-  setFilterList: (list: "all" | "3pm" | "6pm") => void;
+  setFilterList: (list: "all" | "3pm" | "5pm" | "6pm") => void;
   
   // Filtering logic - takes markets from React Query
   getFilteredMarkets: (markets: Market[]) => Market[];
@@ -37,7 +37,7 @@ export const useMarketStore = create<MarketStore>((set, get) => ({
     set({ filterTime: time });
   },
 
-  setFilterList: (list: "all" | "3pm" | "6pm") => {
+  setFilterList: (list: "all" | "3pm" | "5pm" | "6pm") => {
     set({ filterList: list });
   },
 
@@ -45,7 +45,7 @@ export const useMarketStore = create<MarketStore>((set, get) => ({
     const { filterText, filterTime, filterList } = get();
     let filtered = markets;
 
-    // Filter by list (3pm or 6pm) - apply this first to reduce search space
+    // Filter by list (3pm, 5pm, or 6pm) - apply this first to reduce search space
     if (filterList !== "all") {
       filtered = filtered.filter((market) => market.list === filterList);
     }

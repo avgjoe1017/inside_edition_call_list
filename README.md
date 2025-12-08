@@ -2,6 +2,24 @@
 
 A beautiful, professional mobile app for INSIDE EDITION TV show with quick access to station contacts across all markets, featuring one-tap calling, intelligent filtering, and cloud-synced data.
 
+## 🚀 Quick Start (PWA - No Native Build Required)
+
+**Windows/Mac/Linux - Works Everywhere:**
+
+```bash
+# Start as Progressive Web App
+bunx expo start --web
+```
+
+Opens at `http://localhost:8081` → Install as PWA on any device (iOS/Android/Desktop)
+
+✅ **Full functionality** (except voice alerts, which redirect to text)  
+✅ **No Xcode/CocoaPods needed**  
+✅ **Works on Windows**  
+✅ **Install like a native app**
+
+See `QUICK_START_PWA.md` for details.
+
 ## Features
 
 ### Alert System

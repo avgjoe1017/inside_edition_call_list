@@ -32,7 +32,7 @@ export default function MarketEditScreen({ navigation, route }: Props) {
   const [stationCallLetters, setStationCallLetters] = useState(market?.stationCallLetters || "");
   const [airTime, setAirTime] = useState(market?.airTime || "");
   const [timezone, setTimezone] = useState(market?.timezone || "EST");
-  const [list, setList] = useState<"3pm" | "6pm">(market?.list || "6pm");
+  const [list, setList] = useState<"3pm" | "5pm" | "6pm">(market?.list || "6pm");
   const [phones, setPhones] = useState<EditablePhone[]>(
     market?.phones.map((p) => ({ ...p, isNew: false })) || []
   );
@@ -249,7 +249,7 @@ export default function MarketEditScreen({ navigation, route }: Props) {
 
           <View className="mb-3">
             <Text style={{ color: colors.textSecondary }} className="text-sm font-semibold mb-2">List</Text>
-            <View className="flex-row gap-3">
+            <View className="flex-row gap-2">
               <TouchableOpacity
                 onPress={() => setList("3pm")}
                 className="flex-1 p-4 rounded-xl border-2"
@@ -259,10 +259,25 @@ export default function MarketEditScreen({ navigation, route }: Props) {
                 }}
               >
                 <Text
-                  className="text-center font-semibold"
+                  className="text-center font-semibold text-xs"
                   style={{ color: list === "3pm" ? colors.amber.text : colors.textTertiary }}
                 >
-                  3pm List
+                  3PM
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => setList("5pm")}
+                className="flex-1 p-4 rounded-xl border-2"
+                style={{
+                  borderColor: list === "5pm" ? "#10B981" : colors.border,
+                  backgroundColor: list === "5pm" ? "#D1FAE5" : colors.cardBackground,
+                }}
+              >
+                <Text
+                  className="text-center font-semibold text-xs"
+                  style={{ color: list === "5pm" ? "#10B981" : colors.textTertiary }}
+                >
+                  5PM
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -274,10 +289,10 @@ export default function MarketEditScreen({ navigation, route }: Props) {
                 }}
               >
                 <Text
-                  className="text-center font-semibold"
+                  className="text-center font-semibold text-xs"
                   style={{ color: list === "6pm" ? colors.purple.text : colors.textTertiary }}
                 >
-                  6pm List
+                  6PM
                 </Text>
               </TouchableOpacity>
             </View>

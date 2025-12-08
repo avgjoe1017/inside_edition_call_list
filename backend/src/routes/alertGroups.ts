@@ -34,6 +34,16 @@ app.get("/", async (c) => {
       },
     });
 
+    // Get count of 5pm list markets with phone numbers
+    const fivePmCount = await db.market.count({
+      where: {
+        list: "5pm",
+        phones: {
+          some: {},
+        },
+      },
+    });
+
     // Get count of 6pm list markets with phone numbers
     const sixPmCount = await db.market.count({
       where: {
@@ -54,15 +64,22 @@ app.get("/", async (c) => {
       },
       {
         id: "3pm",
-        name: "3:30 Feed",
-        description: "3:30pm broadcast list",
+        name: "3PM Feed",
+        description: "3pm broadcast list",
         recipientCount: threePmCount,
         list: "3pm" as const,
       },
       {
+        id: "5pm",
+        name: "5PM Feed",
+        description: "5pm broadcast list",
+        recipientCount: fivePmCount,
+        list: "5pm" as const,
+      },
+      {
         id: "6pm",
-        name: "6:00 Feed",
-        description: "6:00pm broadcast list",
+        name: "6PM Feed",
+        description: "6pm broadcast list",
         recipientCount: sixPmCount,
         list: "6pm" as const,
       },

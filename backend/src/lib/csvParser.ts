@@ -6,7 +6,7 @@
 import { validateAndFormatPhone } from "./phoneValidator";
 
 export interface CSVMarketRow {
-  Feed: string; // "3:00 PM" or "6:00 PM"
+  Feed: string; // "3:00 PM", "5:00 PM", or "6:00 PM"
   Rank: string; // Market rank/number
   Station: string; // Station call letters (e.g., "WCBS-TV")
   City: string; // Market name/city
@@ -28,7 +28,7 @@ export interface ParsedMarket {
   stationCallLetters: string | null;
   airTime: string;
   timezone: string;
-  list: "3pm" | "6pm";
+  list: "3pm" | "5pm" | "6pm";
   phones: Array<{
     label: string;
     number: string;
@@ -50,9 +50,14 @@ export function parseCSVRow(row: CSVMarketRow): ParsedMarket | null {
     return null;
   }
 
-  // Extract feed/list (3:00 PM = "3pm", 6:00 PM = "6pm")
+  // Extract feed/list (3:00 PM = "3pm", 5:00 PM = "5pm", 6:00 PM = "6pm")
   const feed = row.Feed?.trim() || "";
-  const list = feed.includes("3:00") || feed.includes("3:00 PM") ? "3pm" : "6pm";
+  let list: "3pm" | "5pm" | "6pm" = "6pm"; // Default to 6pm
+  if (feed.includes("3:00") || feed.includes("3:00 PM")) {
+    list = "3pm";
+  } else if (feed.includes("5:00") || feed.includes("5:00 PM")) {
+    list = "5pm";
+  }
 
   // Extract station call letters (remove "-TV", "-DT", etc. for cleaner display)
   let stationCallLetters = row.Station?.trim() || null;
@@ -276,9 +281,9 @@ export function parseCSV(csvText: string): ParsedMarket[] {
           existing.phones.push(phone);
         }
       }
-      // Update list if this is a different feed (prefer 6pm if both exist)
-      if (parsed.list === "6pm") {
-        existing.list = "6pm";
+      // Update list if this is a different feed (prefer 6pm > 5pm > 3pm if multiple exist)
+      if (parsed.list === "6pm" || (parsed.list === "5pm" && existing.list === "3pm")) {
+        existing.list = parsed.list;
       }
     } else {
       marketMap.set(parsed.marketNumber, parsed);

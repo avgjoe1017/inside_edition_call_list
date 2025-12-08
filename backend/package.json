@@ -13,6 +13,7 @@
     "seed": "bun run prisma/seed.ts",
     "import-csv": "bun run scripts/import-csv.ts",
     "test-csv": "bun run scripts/test-csv-parse.ts",
+    "check-db": "bun run scripts/check-db.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",

@@ -17,8 +17,9 @@ type Props = RootStackScreenProps<"VoiceAlert">;
 // Fallback mock data if API fails
 const FALLBACK_GROUPS: RecipientGroup[] = [
   { id: "all", name: "All Stations", description: "Send to all stations", recipientCount: 0, list: "all" },
-  { id: "3pm", name: "3:30 Feed", description: "3:30pm broadcast list", recipientCount: 0, list: "3pm" },
-  { id: "6pm", name: "6:00 Feed", description: "6:00pm broadcast list", recipientCount: 0, list: "6pm" },
+  { id: "3pm", name: "3PM Feed", description: "3pm broadcast list", recipientCount: 0, list: "3pm" },
+  { id: "5pm", name: "5PM Feed", description: "5pm broadcast list", recipientCount: 0, list: "5pm" },
+  { id: "6pm", name: "6PM Feed", description: "6pm broadcast list", recipientCount: 0, list: "6pm" },
 ];
 
 // Animated spinning loader component

@@ -11,7 +11,7 @@ import TextAlertScreen from "@/screens/TextAlertScreen";
 import AlertHistoryScreen from "@/screens/AlertHistoryScreen";
 import AlertDetailScreen from "@/screens/AlertDetailScreen";
 import { useThemeColors } from "@/lib/theme";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import { BurgerMenu } from "@/components/BurgerMenu";
 
 /**
@@ -49,27 +49,11 @@ const RootNavigator = () => {
           headerTitle: "",
           headerLeft: () => (
             <View style={{ marginLeft: 16 }}>
-              <Text
-                style={{
-                  fontSize: 22,
-                  fontWeight: "900",
-                  letterSpacing: 1,
-                  color: colors.textPrimary,
-                }}
-              >
-                INSIDE
-              </Text>
-              <Text
-                style={{
-                  marginTop: 0,
-                  fontSize: 12,
-                  fontWeight: "900",
-                  letterSpacing: 1,
-                  color: "#E11B22",
-                }}
-              >
-                EDITION
-              </Text>
+              <Image
+                source={require("../../assets/image-1765046972.png")}
+                style={{ width: 120, height: 40 }}
+                resizeMode="contain"
+              />
             </View>
           ),
           headerBackButtonMenuEnabled: false,

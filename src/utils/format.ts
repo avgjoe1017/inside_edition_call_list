@@ -54,7 +54,7 @@ export function formatCallTime(dateString: string): string {
  * Returns display information for recipient group chips/badges
  */
 export function getRecipientGroupMeta(
-  groupId: "all" | "3pm" | "6pm",
+  groupId: "all" | "3pm" | "5pm" | "6pm",
   colors?: ReturnType<typeof useThemeColors>
 ): {
   label: string;
@@ -72,14 +72,21 @@ export function getRecipientGroupMeta(
       };
     case "3pm":
       return {
-        label: "3:30 Feed",
+        label: "3PM Feed",
         color: "#F59E0B",
         backgroundColor: "#F59E0B",
         textColor: "#FFFFFF",
       };
+    case "5pm":
+      return {
+        label: "5PM Feed",
+        color: "#10B981", // Emerald green
+        backgroundColor: "#10B981",
+        textColor: "#FFFFFF",
+      };
     case "6pm":
       return {
-        label: "6:00 Feed",
+        label: "6PM Feed",
         color: "#8B5CF6",
         backgroundColor: "#8B5CF6",
         textColor: "#FFFFFF",
