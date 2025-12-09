@@ -1,5 +1,13 @@
 # Progress Log
 
+## 2024-12-09 (Current Date)
+- **Git Repository Setup & GitHub Push:**
+  - Initialized new git repository in `ie_v2` directory (previously git repo was at user home level).
+  - Created comprehensive root-level `.gitignore` to exclude node_modules, database files, cache directories, theme files, and CSV data files.
+  - Committed all project files (73 files, 15,849 insertions) with initial commit message.
+  - Successfully pushed to GitHub repository: `https://github.com/avgjoe1017/inside_edition_call_list.git` on `master` branch.
+  - Rationale: Repository needed to be properly initialized at project root level to track only relevant project files and avoid tracking system/user files.
+
 ## 2024-12-08 23:30 EST
 - **Design System Application:**
   - Applied new white background design to all pages: Station Detail, Edit Station, Settings, Call History, Edit History.
